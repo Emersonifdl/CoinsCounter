@@ -1,0 +1,65 @@
+{% extends "web/base.html" %}
+{% load static %}
+
+{% block titulo %} Dashboard
+{% endblock %}
+
+{% block pagina %}
+    <a class="way-a" href="{% url 'dashboard' %}">Dashboard</a>
+    <i class="fa fa-angle-right"></i>
+    <a class="way-a" href="{% url 'listar_cofres' %}">Cofres</a>
+    <i class="fa fa-angle-right"></i>
+    <span class="way-span">Cadastrar</span>
+{% endblock %}
+
+{% block css %}
+{% endblock %}
+
+{% block conteudo %}
+<!--faq-->
+<div class="blank">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="grid-form1">
+            <h4 id="forms-example" style="text-align:center;">Cadastrar Cofre</h4>
+
+            <form action="" method="post" class="form-inline">
+                <div class="panel-body">
+                    <div class="form-group">
+                        {{ form.nome.label_tag }}
+                        <div class="input-group input-icon right">
+                            <span class="input-group-addon">
+                                <i class="fa fa-desktop"></i>
+                            </span>
+                           {{ form.nome}}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form.local.label_tag }}
+                        <div class="input-group input-icon right">
+                            <span class="input-group-addon">
+                                <i class="fa fa-tags"></i>
+                            </span>
+                           {{ form.local}}
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-4 col-sm-offset-4">
+                            <button class="btn-primary btn">Cadastrar</button>
+                        </div>
+                    </div>
+                </div>
+                {% csrf_token %}
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<!--//faq-->
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
+

@@ -1,0 +1,47 @@
+{% extends "web/base.html" %}
+{% load static %}
+
+{% block titulo %} Dashboard
+{% endblock %}
+
+{% block pagina %}
+    <a class="way-a" href="{% url 'dashboard' %}">Dashboard</a>
+    <i class="fa fa-angle-right"></i>
+{% endblock %}
+
+{% block css %}
+{% endblock %}
+
+{% block conteudo %}
+<!--faq-->
+<div class="blank">
+    <div class="asked">
+        <div class="questions">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Cofre</th>
+                        <th>Local</th>
+                        <th>Valor</th>
+                        <th>Data/hora</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for transacao in transacoes %}
+                    <tr>
+                        <td>{{ transacao.cofre.nome }}</td>
+                        <td>{{ transacao.cofre.local.descricao }}</td>
+                        <td>{{ transacao.valor }}</td> 
+                        <td>{{ transacao.data_hora }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!--//faq-->
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

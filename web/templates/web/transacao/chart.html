@@ -1,0 +1,56 @@
+{% extends "web/base.html" %}
+{% load static %}
+
+{% block titulo %} Dashboard
+{% endblock %}
+
+{% block pagina %}
+    <a class="way-a" href="{% url 'dashboard' %}">Dashboard</a>
+    <i class="fa fa-angle-right"></i>
+{% endblock %}
+
+{% block css %}
+{% endblock %}
+
+{% block conteudo %}
+<!--faq-->
+<div class="blank">
+    <div class="asked">
+        <div    class="questions">
+            <h5>Cofre: {{ cofre }}</h5>
+            <p>Local: {{ local }}</p>
+            <hr>
+            <h4>Gráfico</h4>
+            <div id="chart"></div>
+        </div>
+    </div>
+</div>
+<!--//faq-->
+{% endblock %}
+{% block scripts %}
+
+<script src="{% static 'js/plotly.min.js' %}"></script>
+<script>
+        function getData() {
+
+            return Math.random();
+        }
+        Plotly.plot('chart',[{
+            y:[getData()],
+            type:'line'
+        }]);
+
+        var cnt = 0;
+        setInterval(function(){
+            Plotly.extendTraces('chart',{ y:[[getData()]]}, [0]);
+            cnt++;
+            if(cnt > 500) {
+                Plotly.relayout('chart',{
+                    xaxis: {
+                        range: [cnt-500,cnt]
+                    }
+                });
+            }
+        },15);
+        </script>
+{% endblock %}

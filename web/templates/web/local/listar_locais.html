@@ -1,0 +1,59 @@
+{% extends "web/base.html" %}
+{% load static %}
+
+{% block titulo %} Dispositivos
+{% endblock %}
+
+{% block pagina %}
+    <a class="way-a" href="{% url 'dashboard' %}">Dashboard</a>
+    <i class="fa fa-angle-right"></i>
+    <span class="way-span">Listar Locais</span>
+{% endblock %}
+
+{% block css %}
+{% endblock %}
+
+{% block conteudo %}
+<!--faq-->
+<div class="blank">
+    <div class="rown">
+        <div class="container">
+            <div class="col-md-12">
+                <table class="table table-bordered" style="background:white; text-align:center;">
+                    <thead>
+                        <tr>
+                            <th><h4 style="text-align:left;">Descricao</h4></th>
+                            <th><h4 style="text-align:center;">Opções</h4></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for local in locais %}
+                        <tr>
+                            <td>
+                                <h3><span class="label label-primary">&nbsp {{ local.descricao }} &nbsp</span></h3>
+                            </td>
+                            <td>
+                                <a href="#">
+                                    <button type="button" class="btn btn-warning">Detalhes</button></a>&nbsp &nbsp &nbsp &nbsp
+                                <a href="{% url 'deletar_local' local.id %}">
+                                    <button type="button" class="btn btn-danger">Apagar</button>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+<!--//faq-->
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

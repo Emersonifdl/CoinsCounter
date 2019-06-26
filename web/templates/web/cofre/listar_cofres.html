@@ -1,0 +1,63 @@
+{% extends "web/base.html" %}
+{% load static %}
+
+{% block titulo %} Dispositivos
+{% endblock %}
+
+{% block pagina %}
+    <a class="way-a" href="{% url 'dashboard' %}">Dashboard</a>
+    <i class="fa fa-angle-right"></i>
+    <span class="way-span">Listar Cofres</span>
+{% endblock %}
+
+{% block css %}
+{% endblock %}
+
+{% block conteudo %}
+<!--faq-->
+<div class="blank">
+    <div class="rown">
+        <div class="container">
+            <div class="col-md-12">
+                <table class="table table-bordered" style="background:white; text-align:center;">
+                    <thead>
+                        <tr>
+                            <th><h4 style="text-align:left;">Dispositivo</h4></th>
+                            <th><h4 style="text-align:left;">Token</h4></th>
+                            <th><h4 style="text-align:center;">Local</h4></th>
+                            <th><h4 style="text-align:center;">Opções</h4></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cofre in cofres %}
+                        <tr>
+                            <td><h5 style="text-align:left;">{{ cofre.nome }}</h5></td>
+                            <td><h5 style="text-align:left;">{{ cofre.token }}</h5></td>
+                            <td>
+                                <h4><span class="label label-primary">&nbsp {{ cofre.local.descricao }} &nbsp</span></h4>
+                            </td>
+                            <td>
+                                <a href="#">
+                                    <button type="button" class="btn btn-warning">Detalhes</button></a>&nbsp &nbsp &nbsp &nbsp
+                                <a href="{% url 'deletar_cofre' cofre.token %}">
+                                    <button type="button" class="btn btn-danger">Apagar</button>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+<!--//faq-->
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

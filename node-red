@@ -1,0 +1,1 @@
+[{"id":"4ababaab.21de24","type":"http request","z":"abfd9674.9e36e8","name":"","method":"POST","ret":"txt","paytoqs":false,"url":"127.0.0.1:8000/api/events/","tls":"","proxy":"","authType":"basic","x":510,"y":300,"wires":[[]]}]

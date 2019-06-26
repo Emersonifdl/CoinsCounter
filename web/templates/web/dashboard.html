@@ -1,0 +1,53 @@
+{% extends "web/base.html" %}
+{% load static %}
+
+{% block titulo %} Dashboard
+{% endblock %}
+
+{% block pagina %}
+    <a class="way-a" href="{% url 'dashboard' %}">Dashboard</a>
+    <i class="fa fa-angle-right"></i>
+{% endblock %}
+
+{% block css %}
+{% endblock %}
+
+{% block conteudo %}
+<!--faq-->
+<div class="blank">
+    <div class="content-top">
+        <div class="col-md-4 ">
+            <div class="content-top-1">
+                <div class="col-md-4 top-content">
+                    <h5>Cofres</h5>
+                    <label>{{ cofres }}</label>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+        <div class="col-md-4 ">
+            <div class="content-top-1">
+                <div class="col-md-4 top-content">
+                    <h5>Locais</h5>
+                    <label>{{ locais }}</label>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="content-top-1">
+                <div class="col-md-6 top-content">
+                    <h5>Transações</h5>
+                    <label>{{ transacoes }}</label>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--//faq-->
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
