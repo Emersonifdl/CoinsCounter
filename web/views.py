@@ -338,6 +338,30 @@ class DeletarCofreView(LoginRequiredView):
         )
         return redirect('listar_cofres')
 
+class RecolherCofreView(LoginRequiredView):
+    def __init__(self):
+        super(RecolherCofreView, self).__init__()
+        # self.ano = datetime.now().year
+
+    def get(self, request, token):
+        # Verifica se a Cofre existe.
+        try:
+            cofre = Cofre.objects.get(token=token)
+        except Cofre.DoesNotExist:
+            messages.error(
+                request, 'Não existe um Local com o token {}.'.format(id)
+            )
+            return redirect('listar_cofres')
+
+        cofre.saldo = 0.0
+        cofre.save()
+
+        messages.success(
+            request, 'Dinheiro recolhido com sucesso.'
+        )
+        return redirect('listar_cofres')
+
+
 
 class ListarTransacaoView(LoginRequiredView):
     def __init__(self):

@@ -7,7 +7,7 @@ from web.views import DashboardView, LoginView, LogoutView, \
     TransacaoViewSet, CadastrarLocalView, ListarLocalView, \
     DeletarLocalView, CadastrarCofreView, ListarCofreView, \
     DeletarCofreView, ListarTransacaoView, DetalharCofreView,\
-    DetalharLocalView
+    DetalharLocalView, RecolherCofreView
 
 
 router = routers.DefaultRouter()
@@ -32,6 +32,7 @@ urlpatterns = [
     path('listar/cofre/', ListarCofreView.as_view(), name='listar_cofres'),
     path('deletar/cofre/<str:token>', DeletarCofreView.as_view(), name='deletar_cofre'),
     path('detalhes/cofre/<str:token>', DetalharCofreView.as_view(), name='detalhes_cofre'),
+    path('recolher/cofre/<str:token>', RecolherCofreView.as_view(), name='recolher_cofre'),
 
     # Transacão
     path('listar/transacoes/', ListarTransacaoView.as_view(), name='listar_transacoes'),

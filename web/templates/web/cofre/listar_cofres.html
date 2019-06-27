@@ -23,6 +23,7 @@
                     <thead>
                         <tr>
                             <th><h4 style="text-align:left;">Dispositivo</h4></th>
+                            <th><h4 style="text-align:left;">Saldo</h4></th>
                             <th><h4 style="text-align:center;">Local</h4></th>
                             <th><h4 style="text-align:center;">Opções</h4></th>
                         </tr>
@@ -31,22 +32,56 @@
                         {% for cofre in cofres %}
                         <tr>
                             <td><h5 style="text-align:left;">{{ cofre.nome }}</h5></td>
+                            <td><h5 style="text-align:left;"> R$ {{ cofre.saldo }}</h5></td>
                             <td>
                                 <h4><span class="label label-primary">&nbsp {{ cofre.local.descricao }} &nbsp</span></h4>
                             </td>
                             <td>
                                 <a href="{% url 'detalhes_cofre' cofre.token %}">
-                                    <button type="button" class="btn btn-warning">Detalhes</button></a>&nbsp &nbsp &nbsp &nbsp
+                                    <button type="button" class="btn btn-warning">Detalhes</button></a>
+                                &nbsp &nbsp &nbsp
+
+                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#{{cofre.token}}Modal">
+                                    Recolher
+                                </button>
+                                &nbsp &nbsp &nbsp
                                 <a href="{% url 'deletar_cofre' cofre.token %}">
-                                    <button type="button" class="btn btn-danger">Apagar</button>
-                                </a>
+                                    <button type="button" class="btn btn-danger">Apagar</button></a>
+
+
                             </td>
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
+            <div class="col-md-12">
+                <!-- Button trigger modal -->
 
+                {% for cofre in cofres %}
+                <!-- Modal -->
+                <div class="modal fade" id="{{cofre.token}}Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Recolhimento</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                          Deseja recolher o dinheiro do cofre <b>{{ cofre.nome }}</b> localizado em <b>{{ cofre.local.descricao }}</b>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <a href="{% url 'recolher_cofre' cofre.token %}">
+                            <button type="button" class="btn btn-primary">Recolher</button></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+            </div>
         </div>
 
     </div>
