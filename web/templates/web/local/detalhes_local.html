@@ -1,0 +1,55 @@
+{% extends "web/base.html" %}
+{% load static %}
+
+{% block titulo %} Dispositivos
+{% endblock %}
+
+{% block pagina %}
+    <a class="way-a" href="{% url 'dashboard' %}">Dashboard</a>
+    <i class="fa fa-angle-right"></i>
+    <a class="way-a" href="{% url 'listar_cofres' %}">Cofres</a>
+    <i class="fa fa-angle-right"></i>
+    <span class="way-span">Detalhes</span>
+{% endblock %}
+
+{% block css %}
+{% endblock %}
+
+{% block conteudo %}
+<!--faq-->
+<div class="blank">
+    <div class="rown">
+        <div class="container">
+            <div class="col-md-12">
+                <table class="table table-bordered" style="background:white; text-align:center;">
+                    <thead>
+                        <tr>
+                            <th><h4 style="text-align:left;">Local</h4></th>
+                            <th><h4 style="text-align:center;">Saldo</h4></th>
+                            <th><h4 style="text-align:center;">Cofres</h4></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><h5 style="text-align:left;">{{ local.descricao }}</h5></td>
+                            <td><h5 style="text-align:left;">{{ saldo }}</h5></td>
+                            <td><h5 style="text-align:center;">{{ cofres }}</h5></td>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+<!--//faq-->
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

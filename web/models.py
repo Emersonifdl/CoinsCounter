@@ -42,3 +42,4 @@ class Transacao(models.Model):
         help_text='Valor da Transação.',
         blank=False, null=False,
     )
+    lido = models.BooleanField(default=False)

@@ -3,6 +3,7 @@ from datetime import datetime
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.db.models import Sum
 from django.http import HttpResponseBadRequest
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
@@ -14,6 +15,7 @@ from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.views import View
 from rest_framework import viewsets
+from rest_framework.decorators import action
 
 from web.forms import LoginForm, CadastrarLocalForm, CadastrarCofreForm
 from web.models import Cofre, Local, Transacao
@@ -185,6 +187,36 @@ class DeletarLocalView(LoginRequiredView):
         )
         return redirect('listar_locais')
 
+class DetalharLocalView(LoginRequiredView):
+    def __init__(self):
+        super(DetalharLocalView, self).__init__()
+        # self.ano = datetime.now().year
+
+    def get(self, request, id):
+        # Verifica se a Cofre existe.
+        try:
+            local = Local.objects.get(id=id)
+        except Cofre.DoesNotExist:
+            messages.error(
+                request, 'Não existe um Local com o token {}.'.format(id)
+            )
+            return redirect('listar_locais')
+
+        saldo = Cofre.objects.filter(local=local).aggregate(total=Sum('saldo'))['total']
+        cofres = Cofre.objects.filter(local=local).count()
+
+        context = {
+            'local': local,
+            'saldo': saldo,
+            'cofres': cofres,
+        }
+
+        return render(
+            request,
+            'web/local/detalhes_local.html',
+            context
+        )
+
 
 class CadastrarCofreView(LoginRequiredView):
 
@@ -248,6 +280,42 @@ class ListarCofreView(LoginRequiredView):
         )
 
 
+class DetalharCofreView(LoginRequiredView):
+    def __init__(self):
+        super(DetalharCofreView, self).__init__()
+        # self.ano = datetime.now().year
+
+    def get(self, request, token):
+        # Verifica se a Cofre existe.
+        try:
+            cofre = Cofre.objects.get(token=token)
+        except Cofre.DoesNotExist:
+            messages.error(
+                request, 'Não existe um Cofre com o token {}.'.format(token)
+            )
+            return redirect('listar_cofres')
+
+        transacoes = Transacao.objects.filter(cofre=cofre, lido=False)
+
+        if transacoes:
+            for transacao in transacoes:
+                transacao.lido = True
+                transacao.save()
+                cofre.saldo += transacao.valor
+            cofre.save()
+
+
+        context = {
+            'cofre': cofre,
+        }
+
+        return render(
+            request,
+            'web/cofre/detalhes_cofre.html',
+            context
+        )
+
+
 class DeletarCofreView(LoginRequiredView):
     def __init__(self):
         super(DeletarCofreView, self).__init__()
@@ -288,6 +356,7 @@ class ListarTransacaoView(LoginRequiredView):
             'web/transacao/listar_transacoes.html',
             context
         )
+
 
 class TransacaoViewSet(viewsets.ModelViewSet):
     queryset = Transacao.objects.all()

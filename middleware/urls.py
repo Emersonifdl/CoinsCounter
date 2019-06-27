@@ -6,7 +6,8 @@ from rest_framework import routers
 from web.views import DashboardView, LoginView, LogoutView, \
     TransacaoViewSet, CadastrarLocalView, ListarLocalView, \
     DeletarLocalView, CadastrarCofreView, ListarCofreView, \
-    DeletarCofreView, ListarTransacaoView
+    DeletarCofreView, ListarTransacaoView, DetalharCofreView,\
+    DetalharLocalView
 
 
 router = routers.DefaultRouter()
@@ -24,11 +25,13 @@ urlpatterns = [
     path('cadastrar/local/', CadastrarLocalView.as_view(), name='cadastrar_local'),
     path('listar/local/', ListarLocalView.as_view(), name='listar_locais'),
     path('deletar/local/<int:id>', DeletarLocalView.as_view(), name='deletar_local'),
+    path('detalhes/local/<int:id>', DetalharLocalView.as_view(), name='detalhes_local'),
 
     # Cofre
     path('cadastrar/cofre/', CadastrarCofreView.as_view(), name='cadastrar_cofre'),
     path('listar/cofre/', ListarCofreView.as_view(), name='listar_cofres'),
     path('deletar/cofre/<str:token>', DeletarCofreView.as_view(), name='deletar_cofre'),
+    path('detalhes/cofre/<str:token>', DetalharCofreView.as_view(), name='detalhes_cofre'),
 
     # Transacão
     path('listar/transacoes/', ListarTransacaoView.as_view(), name='listar_transacoes'),
