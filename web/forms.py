@@ -33,6 +33,9 @@ class CadastrarCofreForm(forms.Form):
     nome = forms.CharField(
         label='Nome', max_length=100
     )
+    limite = forms.CharField(
+        label='Limite', max_length=100
+    )
     local = forms.ModelChoiceField(
         queryset=Local.objects.all().order_by('descricao')
     )

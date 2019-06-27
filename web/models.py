@@ -28,6 +28,12 @@ class Cofre(models.Model):
     local = models.ForeignKey(
         Local, on_delete=models.CASCADE
     )
+    limite = models.DecimalField(
+        max_digits=10, decimal_places=2,
+        verbose_name='Limite', default=0.0,
+        help_text='Limite do Cofre.',
+        blank=False, null=False,
+    )
 
     def __str__(self):
         return self.nome

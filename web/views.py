@@ -245,6 +245,7 @@ class CadastrarCofreView(LoginRequiredView):
 
             nome = form.cleaned_data['nome']
             local = form.cleaned_data['local']
+            limite = form.cleaned_data['limite']
             token = token_md5.hexdigest()
 
             # Salva o Local.
@@ -252,7 +253,8 @@ class CadastrarCofreView(LoginRequiredView):
                 nome=nome,
                 local=local,
                 saldo=0.0,
-                token=token
+                token=token,
+                limite=limite,
             )
 
             messages.success(request, 'Cofre cadastrado com sucesso.')
@@ -304,9 +306,11 @@ class DetalharCofreView(LoginRequiredView):
                 cofre.saldo += transacao.valor
             cofre.save()
 
+        progresso = cofre.saldo * 100/cofre.limite
 
         context = {
             'cofre': cofre,
+            'progresso': progresso,
         }
 
         return render(
